@@ -114,7 +114,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'application';
+	$application_folder = 'app';
 
 /*
  *---------------------------------------------------------------
@@ -312,4 +312,18 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
+/*
+echo 'S ELF->'.SELF.'</br>';
+echo 'V IEWPATH->'.VIEWPATH.'</br>';
+echo 'A PPPATH->'.APPPATH.'</br>';
+echo 'S YSDIR->'.SYSDIR.'</br>';
+echo 'F CPATH->'.FCPATH.'</br>';
+echo 'B ASEPATH->'.BASEPATH.'</br>';
+S ELF->index.php
+V IEWPATH->D:\AppServ\www\webroot\bill\app\views\
+A PPPATH->D:\AppServ\www\webroot\bill\app\
+S YSDIR->system
+F CPATH->D:\AppServ\www\webroot\bill\
+B ASEPATH->D:\AppServ\www\webroot\bill\system\
+*/
 require_once BASEPATH.'core/CodeIgniter.php';
