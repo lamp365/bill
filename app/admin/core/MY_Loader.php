@@ -8,12 +8,6 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class MY_Loader extends CI_Loader{
 
-    //开启皮肤功能
-    public function change_view_pos($theme = 'default'){
-        $this->_ci_view_paths = array(FCPATH . "themes/".$theme.'/'	=> TRUE);
-    }
-
-
     /**
      * List of loaded sercices
      *
@@ -74,7 +68,7 @@ class MY_Loader extends CI_Loader{
             // And the service name behind it
             $service = substr($service, $last_slash + 1);
         }
-        ppd($subdir.$service);
+
         foreach($this->_ci_service_paths as $path)
         {
             $filepath = $path .'service/'.$subdir.$service.'.php';
