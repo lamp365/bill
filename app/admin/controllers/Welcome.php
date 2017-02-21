@@ -5,7 +5,7 @@ class Welcome extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->view('public/welcome');
+		$this->load->view('welcome');
 	}
 
 	public function singout(){
@@ -14,13 +14,4 @@ class Welcome extends MY_Controller {
 		redirect('Publics/login');
 	}
 
-	public function top(){
-		$this->load->view('public/top');
-	}
-	public function left_menu(){
-		$this->load->view('public/left_menu');
-	}
-	public function main(){
-		$this->load->view('public/main');
-	}
 }

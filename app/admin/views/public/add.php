@@ -6,7 +6,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('publics/ceshi'); ?>
+<?php echo form_open('publics/add'); ?>
 
 <h5>Username</h5>
 <input type="text" name="username" value="" size="50" />

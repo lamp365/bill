@@ -42,7 +42,7 @@ class Publics extends CI_Controller{
         redirect('welcome/index');
     }
 
-    public function ceshi(){
+    public function add(){
         $this->load->helper(array('form'));
 
         $this->load->library('form_validation');
@@ -55,22 +55,23 @@ class Publics extends CI_Controller{
 
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view('ceshi');
+            $this->load->view('public/add');
         }
         else
         {
-            $data  = $this->Admin_service->addadmin();
-            $res = $this->Admin_model->addUser($data);
-            ppd($res);
+            $res  = $this->Admin_service->addadmin();
             if($res){
-                $this->load->view('ceshi2');
+                $this->load->view('public/addStatus',array('status'=>1));
             }else{
-                die('失败了');
+                $this->load->view('public/addStatus',array('status'=>0));
             }
 
         }
     }
 
+    public function edit(){
+
+    }
     /**
      *
     CREATE TABLE `admin` (
@@ -82,7 +83,5 @@ class Publics extends CI_Controller{
     ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
      *
      */
-    public function form(){
 
-    }
 }

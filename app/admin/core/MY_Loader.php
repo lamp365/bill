@@ -30,6 +30,7 @@ class MY_Loader extends CI_Loader{
     public function __construct()
     {
         parent::__construct();
+        load_class('Service', 'core');
         $this->_ci_service_paths = array(APPPATH);
     }
     /**
@@ -77,12 +78,12 @@ class MY_Loader extends CI_Loader{
                 continue;
             }
             include_once($filepath);
-            $service = strtolower($service);
+//            $service = strtolower($service);
             if (empty($object_name))
             {
                 $object_name = $service;
             }
-            $service = ucfirst($service);
+//            $service = ucfirst($service);
             $CI = &get_instance();
             if($params !== NULL)
             {
