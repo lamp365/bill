@@ -5,21 +5,17 @@
  * Date: 17-2-19
  * Time: 上午11:16
  */
-function get_css($name){
-    return base_url("style/admin/css/{$name}");
+function get_css($name,$pos='home'){
+    return base_url("style/{$pos}/css/{$name}");
 }
-function get_images($name){
-    return base_url("style/admin/images/{$name}");
+function get_images($name,$pos='home'){
+    return base_url("style/{$pos}/images/{$name}");
 }
-function get_js($name){
-    return base_url("style/admin/js/{$name}");
+function get_js($name,$pos='home'){
+    return base_url("style/{$pos}/js/{$name}");
 }
 function get_libs($name){
     return base_url("style/libs/{$name}");
-}
-
-function get_common($name){
-    return base_url("style/common/{$name}");
 }
 function pp(){
     $arr = func_get_args();
@@ -62,6 +58,7 @@ function _tree($arr,$pid = 0,$level = 0){
 
     return $tree;
 }
+
 
 function is_mobile_request()
 {
