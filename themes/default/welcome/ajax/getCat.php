@@ -29,7 +29,12 @@
                     }else{
                         echo '<option value="0">顶级分类</option>';
                         foreach($all as $item){
-                            echo "<option value='{$item['id']}' >{$item['name']}</option>";
+                            if($item['level'] != 0){
+                                echo "<option value='{$item['id']}' >|{$item['html']}{$item['name']}</option>";
+                            }else{
+                                echo "<option value='{$item['id']}' >{$item['name']}</option>";
+                            }
+
                         }
                     }
                     ?>

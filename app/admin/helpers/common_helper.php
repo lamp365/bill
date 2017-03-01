@@ -5,21 +5,17 @@
  * Date: 17-2-19
  * Time: 上午11:16
  */
-function get_css($name){
-    return base_url("style/admin/css/{$name}");
+function get_css($name,$pos='admin'){
+    return base_url("style/{$pos}/css/{$name}");
 }
-function get_images($name){
-    return base_url("style/admin/images/{$name}");
+function get_images($name,$pos='admin'){
+    return base_url("style/{$pos}/images/{$name}");
 }
-function get_js($name){
-    return base_url("style/admin/js/{$name}");
+function get_js($name,$pos='admin'){
+    return base_url("style/{$pos}/js/{$name}");
 }
 function get_libs($name){
     return base_url("style/libs/{$name}");
-}
-
-function get_common($name){
-    return base_url("style/common/{$name}");
 }
 function pp(){
     $arr = func_get_args();
@@ -184,11 +180,19 @@ function catTree($list,$pid=0,$level=0,$html='--'){
     static $tree = array();
     foreach($list as $v){
         if($v['pid'] == $pid){
-            $v['sort'] = $level;
-            $v['html'] = str_repeat($html,$level);
-            $tree[] = $v;
+            $v['level'] = $level;
+            $v['html']  = str_repeat($html,$level);
+            $tree[]     = $v;
             catTree($list,$v['id'],$level+1,$html);
         }
     }
     return $tree;
+}
+
+
+function showAjax($code,$msg){
+    return json_encode(array(
+        'code'=>$code,
+        'msg'=>$msg,
+    ));
 }

@@ -7,6 +7,7 @@ class Welcome extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Cat_model');
+		$this->load->service('Cat_service');
 	}
 
 	public function index()
@@ -16,6 +17,7 @@ class Welcome extends MY_Controller {
 			$css = 'style.css';
 		}
 		$res['data']['css'] = $css;
+		$res['data']['parent'] = $this->Cat_model->getAllCat(array('pid'=>0));
 		$this->load->view('welcome/index',$res);
 	}
 
@@ -26,12 +28,12 @@ class Welcome extends MY_Controller {
 			$css = 'style.css';
 		}
 		$res['data']['css'] = $css;
+		$res['data']['cat'] = $this->Cat_service->getAllCat();
 		$this->load->view('welcome/catList',$res);
 	}
 
 	public function getCat($id='')
 	{
-		$this->load->service('Cat_service');
 		$res['all'] = $this->Cat_service->getAllCat();
 		$res['one'] = array();
 		if($id){
@@ -50,17 +52,33 @@ class Welcome extends MY_Controller {
 		{
 			//提示错误并跳转
 			$msg = validation_errors();
+			$msg = "分类名称不能为空";
 			$this->showError($msg);
 		}else{
 			$data['name'] = $this->input->post('cat_name');
 			$data['pid']  = $this->input->post('cat_id');
+			$data['createtime'] = time();
 			if($this->Cat_model->addCat($data)){
 				//提示成功并跳转
-				die('成功过');
+				$this->showSuccess("添加成功！");
 			}else{
 				//提示失败并跳转
-				die('失败过');
+				$this->showError('添加失败！');
 			}
+		}
+	}
+
+	public function ajaxcat(){
+		$pid = $this->uri->segment(4);
+		if($pid){
+			$res = $this->Cat_model->getAllCat(array('pid'=>$pid));
+			if($res){
+				die(showAjax(200,$res));
+			}else{
+				die(showAjax(1002,'查无分类'));
+			}
+		}else{
+			die(showAjax(1002,'查无分类'));
 		}
 	}
 

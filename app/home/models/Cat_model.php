@@ -14,7 +14,10 @@ class Cat_model extends CI_Model{
         $query = $this->db->where($where)->get(self::TABLE);
         return $query->row_array();
     }
-    public function getAllCat(){
+    public function getAllCat($where=array()){
+        if(!empty($where)){
+            $this->db->where($where);
+        }
         $query = $this->db->get(self::TABLE);
         return $query->result_array();
     }

@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="main_box">
     <div class="top_header">
         <div class="header_title" style="">
-            <a href="index.php" class='art_active'>账单出入</a>
+            <a href="<?php echo site_url('welcome/index')?>" class='art_active'>账单出入</a>
             <a href="<?php echo site_url('welcome/catList')?>" >分类列表</a>
             <div class="head_right">
                 <span class="btn btn-xs btn-info" data-toggle="modal" data-target="#addBill">添加账单</span>
@@ -28,15 +28,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="col-xs-6">
                 <div class="form-group">
+                    <input type="hidden" id="hide_get_url" value="<?php echo site_url('welcome/index');?>">
+                    <input type="hidden" id="hide_cat_url" value="<?php echo site_url('welcome/ajaxCat');?>">
                     <select name="parent_cat" id="sel_parent_cat" class="form-control">
                         <option value="0">查看所有分类</option>
+                        <?php
+                        foreach($data['parent'] as $one) {
+                            echo "<option value='{$one['id']}'>{$one['name']}</option>";
+                        }
+                        ?>
+
                     </select>
                 </div>
             </div>
             <div class="col-xs-6">
                 <div class="form-group">
                     <select name="son_cat" id="sel_son_cat" class="form-control">
-                        <option value="0">请选选择父分类</option>
+                        <option value="-1">请选选择父分类</option>
                     </select>
                 </div>
             </div>
@@ -161,6 +169,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div><!-- /.modal -->
     </form>
 </div>
+
+<div id="alterModal" class="alertModalBox"></div>
 
 <script src="<?php echo get_js('jquery-1.10.2.min.js','common');?>"></script>
 <script src="<?php echo get_js('bootstrap.min.js','common');?>"></script>

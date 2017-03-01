@@ -50,4 +50,36 @@ $(".addCat").click(function(){
     $.ajaxLoad(url,{},function(){
         $('#alterModal').modal('show');
     });
-})
+});
+
+$("#sel_parent_cat").change(function(){
+    var url     = $("#hide_get_url").val();
+    var ajaxurl = $("#hide_cat_url").val();
+    url         = url.substr(0,url.length-5); //字符串截取
+    ajaxurl     = ajaxurl.substr(0,ajaxurl.length-5); //字符串截取
+
+    var pid = $(this).val();
+    url     = url +"/pid/"+pid;
+    ajaxurl = ajaxurl +"/pid/"+pid;
+    if(pid == 0){
+        window.location.href = url;
+    }else{
+        $.getJSON(ajaxurl,function(data){
+            if(data.code == 200){
+                var html ="<option value='0'>请选择子分类</option>";
+                var res  = data.msg;
+                for(var i =0;i<res.length;i++){
+                    var shuju = res[i];
+                    html +="<option value='"+shuju.id+"'>"+shuju.name+"</option>";
+                }
+                $("#sel_son_cat").html(html);
+            }else{
+                alert(data.msg);
+            }
+        },'json')
+    }
+});
+
+$("#sel_son_cat").change(function(){
+
+});

@@ -24,7 +24,7 @@
     $(function(){
         alert(msg,tit,function(){
             goUrl(url);
-        });
+        },{type: 'success'});
 
         var interval = setInterval(function(){
             var obj = $(".BeAlert_box");
