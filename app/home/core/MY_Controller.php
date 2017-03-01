@@ -15,5 +15,13 @@ class MY_Controller extends CI_Controller{
     public function showDebug(){
         $this->output->enable_profiler(true);
     }
+
+    public function showError($msg,$url='',$time=2){
+        $data['res']['msg']  = $msg;
+        $data['res']['url']  = $url;
+        $data['res']['time'] = $time;
+        $content = $this->load->view('common/error',$data);
+        die($content->output->final_output);
+    }
 }
 

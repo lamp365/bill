@@ -179,3 +179,16 @@ function is_mobile_request()
     else
         return false;
 }
+
+function catTree($list,$pid=0,$level=0,$html='--'){
+    static $tree = array();
+    foreach($list as $v){
+        if($v['pid'] == $pid){
+            $v['sort'] = $level;
+            $v['html'] = str_repeat($html,$level);
+            $tree[] = $v;
+            catTree($list,$v['id'],$level+1,$html);
+        }
+    }
+    return $tree;
+}

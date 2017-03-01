@@ -163,5 +163,12 @@ table td{
 .e_time{
     width: 47%;display: inline-block;
     margin-left:20px;
-
+}
+.modal_top{
+    font-size:14px;
+    font-weight: bolder;
+    line-height:30px;
+    height:40px;
+    border-bottom:1px solid #E5E5E5;
+    margin-bottom:20px;
 }

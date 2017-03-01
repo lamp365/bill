@@ -179,3 +179,11 @@ table tbody{
 .e_time{
     width: 45%;display: inline-block;
 }
+.modal_top{
+    font-size:14px;
+    font-weight: bolder;
+    line-height:30px;
+    height:40px;
+    border-bottom:1px solid #E5E5E5;
+    margin-bottom:20px;
+}

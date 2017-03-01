@@ -14,6 +14,10 @@ class Cat_model extends CI_Model{
         $query = $this->db->where($where)->get(self::TABLE);
         return $query->row_array();
     }
+    public function getAllCat(){
+        $query = $this->db->get(self::TABLE);
+        return $query->result_array();
+    }
 
     public function addCat($data){
         return $this->db->insert(self::TABLE,$data);

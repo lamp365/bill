@@ -31,10 +31,12 @@ class Welcome extends MY_Controller {
 
 	public function getCat($id='')
 	{
-		$res['data'] = array();
+		$this->load->service('Cat_service');
+		$res['all'] = $this->Cat_service->getAllCat();
+		$res['one'] = array();
 		if($id){
 			//获取分类
-			$res['data'] = $this->Cat_model->getOneCat(array('id'=>$id));
+			$res['one'] = $this->Cat_model->getOneCat(array('id'=>$id));
 		}
 		$this->load->view('welcome/ajax/getCat',$res);
 	}
@@ -47,7 +49,8 @@ class Welcome extends MY_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{
 			//提示错误并跳转
-			die('验证失败');
+			$msg = validation_errors();
+			$this->showError($msg);
 		}else{
 			$data['name'] = $this->input->post('cat_name');
 			$data['pid']  = $this->input->post('cat_id');
