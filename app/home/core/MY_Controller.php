@@ -20,8 +20,8 @@ class MY_Controller extends CI_Controller{
         $data['res']['msg']  = $msg;
         $data['res']['url']  = $url;
         $data['res']['time'] = $time;
-        $content = $this->load->view('common/error',$data);
-        die($content->output->final_output);
+        $content = $this->load->view('common/error',$data,true);
+        die($content);
     }
 }
 
