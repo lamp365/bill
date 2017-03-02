@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a href="<?php echo site_url('welcome/index')?>" class='art_active'>账单出入</a>
             <a href="<?php echo site_url('welcome/catList')?>" >分类列表</a>
             <div class="head_right">
-                <span class="btn btn-xs btn-info" data-toggle="modal" data-target="#addBill">添加账单</span>
+                <span class="btn btn-xs btn-info addBill" data-url="<?php echo site_url('welcome/addbill');?>">添加账单</span>
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="clo-md-2 col-xs-2">
                 <div class="form-group">
-                    <input type="hidden" value="<?php echo site_url('welcome/index');?>" class="hide_search_url">;
+                    <input type="hidden" value="<?php echo site_url('welcome/index');?>" class="hide_search_url">
                     <button type="button" class="btn btn-default search_btn" style="float: right;">查询记录</button>
                 </div>
             </div>

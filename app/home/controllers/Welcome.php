@@ -32,8 +32,9 @@ class Welcome extends MY_Controller {
 		$this->load->view('welcome/catList',$res);
 	}
 
-	public function getCat($id='')
+	public function getCat()
 	{
+		$id = $this->uri->segment(4);
 		$res['all'] = $this->Cat_service->getAllCat();
 		$res['one'] = array();
 		if($id){
@@ -82,6 +83,9 @@ class Welcome extends MY_Controller {
 		}
 	}
 
+	public function addbill(){
+		$this->load->view('welcome/ajax/addbill');
+	}
 	/*
  CREATE TABLE `paybill`(
 `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

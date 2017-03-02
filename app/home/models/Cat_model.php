@@ -10,7 +10,7 @@ class Cat_model extends CI_Model{
 
     const TABLE = 'cat1';
 
-    public function getOneCatBy($where){
+    public function getOneCat($where){
         $query = $this->db->where($where)->get(self::TABLE);
         return $query->row_array();
     }

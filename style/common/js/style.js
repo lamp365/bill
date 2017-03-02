@@ -83,3 +83,10 @@ $("#sel_parent_cat").change(function(){
 $("#sel_son_cat").change(function(){
 
 });
+
+$(".addBill").click(function(){
+   var url = $(this).data('url');
+    $.ajaxLoad(url,{},function(){
+        $('#alterModal').modal('show');
+    });
+});
