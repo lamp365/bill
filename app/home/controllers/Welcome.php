@@ -16,8 +16,10 @@ class Welcome extends MY_Controller {
 		if(is_mobile_request()){
 			$css = 'style.css';
 		}
-		$res['data']['css'] = $css;
+		$res['data']['css']    = $css;
 		$res['data']['parent'] = $this->Cat_model->getAllCat(array('pid'=>0));
+		$res['data']['bill']   = $this->Cat_model->getBIllList();
+
 		$this->load->view('welcome/index',$res);
 	}
 
@@ -79,12 +81,41 @@ class Welcome extends MY_Controller {
 				die(showAjax(1002,'查无分类'));
 			}
 		}else{
-			die(showAjax(1002,'查无分类'));
+			die(showAjax(1002,'查无子分类'));
 		}
 	}
 
 	public function addbill(){
-		$this->load->view('welcome/ajax/addbill');
+		$data['parent'] = $this->Cat_model->getAllCat(array('pid'=>0));
+		$this->load->view('welcome/ajax/addbill',$data);
+	}
+
+	public function postBill(){
+		$this->load->helper(array('form'));
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('price', '消费金额', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			//提示错误并跳转
+			$msg = validation_errors();
+			$msg = "消费金额不能为空";
+			$this->showError($msg);
+		}else{
+			$data['p_id'] = $this->input->post('p_cat_id');
+			$data['c_id'] = $this->input->post('s_cat_id');
+			$data['pay_type']   = $this->input->post('pay_type');
+			$data['jine']       = $this->input->post('price');
+			$data['remark']     = $this->input->post('remark');
+			$data['createtime'] = time();
+			$data['uid']        = 1;
+			if($this->Cat_model->addBill($data)){
+				//提示成功并跳转
+				$this->showSuccess("添加成功！");
+			}else{
+				//提示失败并跳转
+				$this->showError('添加失败！');
+			}
+		}
 	}
 	/*
  CREATE TABLE `paybill`(

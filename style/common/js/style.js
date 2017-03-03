@@ -52,17 +52,23 @@ $(".addCat").click(function(){
     });
 });
 
-$("#sel_parent_cat").change(function(){
+function sel_parent_cat(obj){
     var url     = $("#hide_get_url").val();
     var ajaxurl = $("#hide_cat_url").val();
     url         = url.substr(0,url.length-5); //字符串截取
     ajaxurl     = ajaxurl.substr(0,ajaxurl.length-5); //字符串截取
 
-    var pid = $(this).val();
+    var pid = $(obj).val();
     url     = url +"/pid/"+pid;
     ajaxurl = ajaxurl +"/pid/"+pid;
     if(pid == 0){
-        window.location.href = url;
+        var mark = $(obj).closest('.total_sel').find(".sel_son_cat").data('local');
+        if(mark == 1)
+            window.location.href = url;
+        else{
+            var html ="<option value='0'>请选择父分类</option>";
+            $(obj).closest('.total_sel').find(".sel_son_cat").html(html);
+        }
     }else{
         $.getJSON(ajaxurl,function(data){
             if(data.code == 200){
@@ -72,17 +78,25 @@ $("#sel_parent_cat").change(function(){
                     var shuju = res[i];
                     html +="<option value='"+shuju.id+"'>"+shuju.name+"</option>";
                 }
-                $("#sel_son_cat").html(html);
+                $(obj).closest('.total_sel').find(".sel_son_cat").html(html);
             }else{
                 alert(data.msg);
             }
         },'json')
     }
-});
+}
 
-$("#sel_son_cat").change(function(){
-
-});
+function sel_son_cat(obj){
+    var s_cat_id = $(obj).val();
+    var p_cat_id = $(obj).closest('.total_sel').find(".sel_parent_cat").val();
+    var mark = $(obj).data('local');
+    var url     = $("#hide_get_url").val();
+    url         = url.substr(0,url.length-5); //字符串截取
+    url = url +"/"+p_cat_id+"/"+s_cat_id;
+    if(mark == 1){
+        window.location.href = url;
+    }
+}
 
 $(".addBill").click(function(){
    var url = $(this).data('url');

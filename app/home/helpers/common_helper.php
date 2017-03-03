@@ -196,3 +196,9 @@ function showAjax($code,$msg){
         'msg'=>$msg,
     ));
 }
+
+function getCatName($id){
+    $obj = &get_instance();
+    $cat = $obj->Cat_model->getOneCat(array('id'=>$id));
+    return $cat['name'];
+}

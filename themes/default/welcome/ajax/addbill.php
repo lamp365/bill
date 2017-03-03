@@ -11,20 +11,52 @@
             添加账单
         </h4>
     </div>
-    <form class="form-horizontal" role="form" method="post" action="<?php echo site_url('welcome/addbill');?>">
+    <form class="form-horizontal total_sel" role="form" method="post" action="<?php echo site_url('welcome/postBill');?>">
         <div class="modal-body">
             <div class="form-group">
-                <label for="firstname" class="col-sm-2 control-label">分类名称</label>
+                <label for="firstname" class="col-sm-2 control-label">所属分类</label>
                 <div class="col-sm-10">
-                    <input type="text" name="cat_name" class="form-control" id="firstname" placeholder="请输入分类名称" value="">
+                    <select class="form-control sel_parent_cat" name="p_cat_id" onchange="sel_parent_cat(this)" >
+                        <option value="0">请选择分类</option>
+                        <?php foreach($parent as $one) {
+
+                                echo "<option value='{$one['id']}'>{$one['name']}</option>";
+                            }
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">选择分类</label>
+                <label for="name" class="col-sm-2 control-label sel_parent_cat">所属子类</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="cat_id">
-
+                    <select class="form-control sel_son_cat" data-mark='0' name="s_cat_id" onchange="sel_son_cat(this)" >
+                        <option value="-1">请选择父分类</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label sel_parent_cat">支出类型</label>
+                <div class="col-sm-10">
+                    <select class="form-control"  name="pay_type" >
+                        <option value="1">支出金额</option>
+                        <option value="1">收入金额</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <b>消费金额</b>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" name="price" class="form-control" placeholder="请输入消费金额">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <b>备注信息</b>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" name="remark" class="form-control" placeholder="请输入备注信息">
                 </div>
             </div>
         </div>

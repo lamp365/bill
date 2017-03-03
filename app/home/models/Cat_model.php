@@ -10,6 +10,8 @@ class Cat_model extends CI_Model{
 
     const TABLE = 'cat1';
 
+    const PAYBILL = 'paybill';
+
     public function getOneCat($where){
         $query = $this->db->where($where)->get(self::TABLE);
         return $query->row_array();
@@ -28,5 +30,15 @@ class Cat_model extends CI_Model{
 
     public function updateCat($where,$data){
         return $this->db->where($where)->update(self::TABLE,$data);
+    }
+
+    public function addBill($data){
+       return $this->db->insert(self::PAYBILL,$data);
+    }
+
+    public function getBIllList(){
+        $this->db->where(array('uid'=>1));
+        $query = $this->db->get(self::PAYBILL);
+        return $query->result_array();
     }
 }

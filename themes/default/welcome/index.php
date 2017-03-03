@@ -24,13 +24,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
     </div>
-    <div class="container action">
+    <div class="container action total_sel">
         <div class="row">
             <div class="col-xs-6">
                 <div class="form-group">
                     <input type="hidden" id="hide_get_url" value="<?php echo site_url('welcome/index');?>">
                     <input type="hidden" id="hide_cat_url" value="<?php echo site_url('welcome/ajaxCat');?>">
-                    <select name="parent_cat" id="sel_parent_cat" class="form-control">
+                    <select name="parent_cat" onchange="sel_parent_cat(this)" class="form-control sel_parent_cat">
                         <option value="0">查看所有分类</option>
                         <?php
                         foreach($data['parent'] as $one) {
@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="col-xs-6">
                 <div class="form-group">
-                    <select name="son_cat" id="sel_son_cat" class="form-control">
+                    <select name="son_cat" data-mark='1'  onchange="sel_son_cat(this)" class="form-control sel_son_cat">
                         <option value="-1">请选选择父分类</option>
                     </select>
                 </div>
@@ -70,33 +70,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
                 <th>分类</th>
                 <th>金额</th>
-                <th>时间</th>
                 <th>备注</th>
+                <th>时间</th>
             </tr>
             </thead>
             <tbody>
-            <volist name="info" id="row">
+            <?php foreach($data['bill'] as $bill){ ?>
                 <tr class="one_row">
-                    <td class="name_sty">{$row['name']}<br/><a href="tel:{$row['mobile']}" class="mobile_sty">{$row['mobile']}</a></td>
-                    <!--<td>{$tongxue_type[$row['type']]}</td>-->
-                    <td class="comming" data-status="{$row['cancomming']}" style="padding-top: 20px;"><span class="show_comming">{$can_comming[$row['cancomming']]}</span></td>
-                    <td class="need_hotal" style="padding-top: 18px;">
-                        <if condition="$row['is_hotal'] == 1">
-                            <span class="btn btn-xs btn-default show_hotal" data-id="{$row['id']}" data-hotal="{$row['is_hotal']}" data-url="__CONTROLLER__/hotal">无需住宿</span>
-                            <else/>
-                            <span class="btn btn-xs btn-info show_hotal" data-id="{$row['id']}"  data-hotal="{$row['is_hotal']}" data-url="__CONTROLLER__/hotal">需要住宿</span>
-                        </if>
-
+                    <td class="name_sty"><?php echo getCatName($bill['p_id']);?></td>
+                    <td class="comming" ><span class="show_comming"><?php echo $bill['jine'];?></span></td>
+                    <td class="need_hotal">
+                        <?php echo $bill['remark'];?>
                     </td>
                     <td>
-                        <span class="btn btn-xs btn-info edit_user" data-id="{$row['id']}" data-url="__CONTROLLER__/getUser">修&nbsp;&nbsp;改</span><br/>
-                        <span class="btn btn-xs btn-danger del_user" data-id="{$row['id']}" data-url="__CONTROLLER__/delUser">移&nbsp;&nbsp;除</span>
+                        <?php echo date("Y-m-d H:i",$bill['createtime']);?>
                     </td>
                 </tr>
-            </volist>
+            <?php } ?>
             </tbody>
         </table>
-        <p class="total">共：<span>{$total_num}</span> 位宾客</p>
+        <p class="total">共：<span>{$total_num}</span>条记录</p>
     </div>
 </div>
 
