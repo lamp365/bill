@@ -92,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <td  style="min-width: 90px;">
                         <?php echo $bill['remark'];?>
                     </td>
-                    <td style="max-width: 60px;">
+                    <td style="min-width: 65px;">
                         <?php echo date("Y-m-d H:i",$bill['createtime']);?>
                     </td>
                 </tr>
