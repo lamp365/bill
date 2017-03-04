@@ -164,7 +164,7 @@ class Welcome extends MY_Controller {
 			$data['jine']       = $this->input->post('price');
 			$data['remark']     = $this->input->post('remark');
 			$data['createtime'] = time();
-			$data['uid']        = 1;
+			$data['uid']        = 2;
 			if($this->Cat_model->addBill($data)){
 				//提示成功并跳转
 				$this->showSuccess("添加成功！");
