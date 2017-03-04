@@ -86,8 +86,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tbody>
             <?php foreach($data['bill'] as $bill){ ?>
                 <tr class="one_row">
-                    <td style="min-width: 75px;"><?php echo getCatName($bill['p_id']);?></td>
-                    <td style="min-width: 75px;"><?php echo getCatName($bill['c_id']);?></td>
+                    <td style="min-width: 60px;"><?php echo getCatName($bill['p_id']);?></td>
+                    <td style="min-width: 60px;"><?php echo getCatName($bill['c_id']);?></td>
                     <td class="" ><?php if($bill['pay_type'] ==1){ echo "-"; }else{ echo "+";}  echo $bill['jine'];?></td>
                     <td  style="min-width: 90px;">
                         <?php echo $bill['remark'];?>
