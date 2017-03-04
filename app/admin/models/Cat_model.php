@@ -8,7 +8,7 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Cat_model extends CI_Model{
 
-    const TABLE = 'cat1';
+    const TABLE = 'cat2';
 
     const PAYBILL = 'paybill';
 
@@ -37,7 +37,7 @@ class Cat_model extends CI_Model{
     }
 
     public function getBIllList($where = array(),$limit=''){
-        $where['uid'] = 1;
+        $where['uid'] = 2;
         $this->db->where($where);
         if(!empty($limit)){
             $this->db->limit($limit);
@@ -47,7 +47,7 @@ class Cat_model extends CI_Model{
     }
 
     public  function  count_allBill($where=array()){
-        $where['uid'] = 1;
+        $where['uid'] = 2;
         if(empty($where)){
             return $this->db->count_all(self::PAYBILL);
         }else{

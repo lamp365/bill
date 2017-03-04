@@ -164,11 +164,13 @@ table td{
     width: 47%;display: inline-block;
     margin-left:20px;
 }
-.modal_top{
-    font-size:14px;
-    font-weight: bolder;
-    line-height:30px;
-    height:40px;
-    border-bottom:1px solid #E5E5E5;
-    margin-bottom:20px;
+.total strong,.total a{
+    padding: 4px 8px;
+    background: #eee;
+    margin-right: 2px;
+    cursor: pointer;
+}
+.total strong:hover,.total a:hover{
+    background: #DEDEDE;
+    text-decoration: none;
 }

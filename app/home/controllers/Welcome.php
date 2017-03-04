@@ -18,7 +18,50 @@ class Welcome extends MY_Controller {
 		}
 		$res['data']['css']    = $css;
 		$res['data']['parent'] = $this->Cat_model->getAllCat(array('pid'=>0));
-		$res['data']['bill']   = $this->Cat_model->getBIllList();
+
+        $p_id = $this->uri->segment(3);
+        $c_id = $this->uri->segment(4);
+        $where = array();
+        if(!empty($p_id) && !empty($c_id)){
+            $where = array('p_id'=>$p_id,'c_id'=>$c_id);
+        }
+
+        if(empty($where)){
+            $page = $this->uri->segment(3);
+        }else{
+            $page = $this->uri->segment(5);
+        }
+
+        if(empty($page)){
+            $page = 1;
+        }
+
+        $curt_url = rtrim(site_url('welcome/index'),'.html');
+        $curt_url = empty($where) ? $curt_url : $curt_url.'/'.$p_id.'/'.$c_id;
+        $this->load->library('pagination');
+        $config['base_url']    = $curt_url;
+        $config['total_rows']  = $this->Cat_model->count_allBill($where);
+        $config['per_page']    = 6;
+        $config['uri_segment'] = empty($where) ? 3 : 5 ;
+        $config['use_page_numbers'] = TRUE;
+        $config['first_link']  = '首页';
+        $config['last_link']   = '尾页';
+        $config['prev_link']   = '上一页';
+        $config['next_link']   = '下一页';
+        $this->pagination->initialize($config);
+
+        $limit  = $config['per_page'];
+        $offset = ($page-1)*$config['per_page'];
+        $limit  = "{$limit},{$offset}";
+
+        $billinfo = $this->Cat_model->getBIllList($where,$limit);
+        $pageinfo = $this->pagination->create_links();
+
+
+		$res['data']['bill']      = $billinfo;
+		$res['data']['pageinfo']  = $pageinfo;
+		$res['data']['p_id']      = $p_id;
+		$res['data']['c_id']      = $c_id;
 
 		$this->load->view('welcome/index',$res);
 	}
@@ -58,16 +101,30 @@ class Welcome extends MY_Controller {
 			$msg = "分类名称不能为空";
 			$this->showError($msg);
 		}else{
+            $id = $this->input->post('hide_id');
 			$data['name'] = $this->input->post('cat_name');
-			$data['pid']  = $this->input->post('cat_id');
-			$data['createtime'] = time();
-			if($this->Cat_model->addCat($data)){
-				//提示成功并跳转
-				$this->showSuccess("添加成功！");
-			}else{
-				//提示失败并跳转
-				$this->showError('添加失败！');
-			}
+
+            if(empty($id)){
+                $data['pid']  = $this->input->post('cat_id');
+                $data['createtime'] = time();
+                if($this->Cat_model->addCat($data)){
+                    //提示成功并跳转
+                    $this->showSuccess("添加成功！");
+                }else{
+                    //提示失败并跳转
+                    $this->showError('添加失败！');
+                }
+            }else{
+                //更新
+                $where = array('id'=>$id);
+                if($this->Cat_model->updateCat($where,$data)){
+                    //提示成功并跳转
+                    $this->showSuccess("修改成功！");
+                }else{
+                    //提示失败并跳转
+                    $this->showError('添加失败！');
+                }
+            }
 		}
 	}
 

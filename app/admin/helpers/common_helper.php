@@ -189,10 +189,15 @@ function catTree($list,$pid=0,$level=0,$html='--'){
     return $tree;
 }
 
-
 function showAjax($code,$msg){
     return json_encode(array(
         'code'=>$code,
         'msg'=>$msg,
     ));
+}
+
+function getCatName($id){
+    $obj = &get_instance();
+    $cat = $obj->Cat_model->getOneCat(array('id'=>$id));
+    return $cat['name'];
 }

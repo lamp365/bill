@@ -140,4 +140,31 @@ if (typeof $ === 'function') {
 $("#alterModal").on("hidden.bs.modal", function() {
     $(this).removeData("bs.modal");
 });
+//弹窗事件
+$('[data-toggle="modal"]').click(function(){
+    if($(this)[0].tagName == 'A' || $(this)[0].tagName == 'a'){
+        var url = $(this).attr('href');
+    }else{
+        var url = $(this).data('remote');
+    }
+    $.ajaxLoad(url,{},function(){
+        $('#alterModal').modal('show');
+    });
+    return false;
+});
 
+
+//跳转
+$.redirect = function(url,after){
+    after = after || 0;
+
+    $.timeout(function(){
+        if($.isEmptyObject(url)){
+            window.location.reload();
+        }else{
+            window.location = url;
+        }
+
+    },after);
+
+};

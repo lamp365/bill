@@ -89,10 +89,11 @@ function sel_parent_cat(obj){
 function sel_son_cat(obj){
     var s_cat_id = $(obj).val();
     var p_cat_id = $(obj).closest('.total_sel').find(".sel_parent_cat").val();
-    var mark = $(obj).data('local');
+    var mark = $(obj).data('mark');
     var url     = $("#hide_get_url").val();
     url         = url.substr(0,url.length-5); //字符串截取
     url = url +"/"+p_cat_id+"/"+s_cat_id;
+    console.log(url,mark);
     if(mark == 1){
         window.location.href = url;
     }

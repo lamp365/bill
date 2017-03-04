@@ -15,7 +15,7 @@ class Publics extends CI_Controller{
         $this->load->service('Admin_service');
 
         if($this->session->has_userdata('admin_account')){
-            redirect('welcome/index');
+            redirect('kevin/index');
         }
     }
 
@@ -39,7 +39,7 @@ class Publics extends CI_Controller{
 
     public function dologin(){
         $this->session->set_userdata('admin_account','1');
-        redirect('welcome/index');
+        redirect('kevin/index');
     }
 
     public function add(){
@@ -115,6 +115,7 @@ class Publics extends CI_Controller{
         $config['total_rows']  = $this->Admin_model->count_allUser2();
         $config['per_page']    = 6;
         $config['uri_segment'] = 3;
+        $config['use_page_numbers'] = TRUE;
         $config['first_link']  = '首页';
         $config['last_link']   = '尾页';
         $config['prev_link']   = '上一页';

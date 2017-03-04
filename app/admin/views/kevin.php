@@ -21,7 +21,7 @@
 			<ul class="top-info-list clearfix">
 				<li><a href="#">管理员</a></li>
 				<li><a href="#">修改密码</a></li>
-				<li><a href="<?php echo site_url('welcome/singout');?>">退出</a></li>
+				<li><a href="<?php echo site_url('kevin/singout');?>">退出</a></li>
 			</ul>
 		</div>
 	</div>
