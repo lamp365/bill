@@ -76,8 +76,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th style="text-align: center">一级分类</th>
-                <th style="text-align: center">二级分类</th>
+                <th style="text-align: center"><?php if(is_mobile_request()){echo '一级'; }else{ echo '一级分类';}?></th>
+                <th style="text-align: center"><?php if(is_mobile_request()){echo '二级'; }else{ echo '二级分类';}?></th>
                 <th style="text-align: center">金额</th>
                 <th style="text-align: center">备注</th>
                 <th style="text-align: center">时间</th>
