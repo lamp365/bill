@@ -36,13 +36,15 @@ class Cat_model extends CI_Model{
        return $this->db->insert(self::PAYBILL,$data);
     }
 
-    public function getBIllList($where = array(),$limit=''){
+    public function getBIllList($where = array(),$limit=array()){
         $where['uid'] = 2;
         $this->db->where($where);
         if(!empty($limit)){
-            $this->db->limit($limit);
+            $this->db->limit($limit['length'],$limit['offset']);
         }
+        $this->db->order_by("id","desc");
         $query = $this->db->get(self::PAYBILL);
+//        ppd($limit,$this->db->last_query());
         return $query->result_array();
     }
 
@@ -54,5 +56,13 @@ class Cat_model extends CI_Model{
             $this->db->where($where);
             return $this->db->count_all_results(self::PAYBILL);
         }
+    }
+
+    public function count_allmoney($where='',$field='jine'){
+        $where['uid'] = 2;
+        $this->db->where($where);
+        $this->db->select_sum($field,'total_money');
+        $query =  $this->db->get(self::PAYBILL);
+        return $query->row_array();
     }
 }

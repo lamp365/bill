@@ -21,9 +21,10 @@ class Welcome extends MY_Controller {
 
         $p_id = $this->uri->segment(3);
         $c_id = $this->uri->segment(4);
-        $where = array();
+        $where = $where2 = array();
         if(!empty($p_id) && !empty($c_id)){
             $where = array('p_id'=>$p_id,'c_id'=>$c_id);
+            $where2 = array('p_id'=>$p_id,'c_id'=>$c_id);
         }
 
         if(empty($where)){
@@ -41,7 +42,7 @@ class Welcome extends MY_Controller {
         $this->load->library('pagination');
         $config['base_url']    = $curt_url;
         $config['total_rows']  = $this->Cat_model->count_allBill($where);
-        $config['per_page']    = 6;
+        $config['per_page']    = 20;
         $config['uri_segment'] = empty($where) ? 3 : 5 ;
         $config['use_page_numbers'] = TRUE;
         $config['first_link']  = '首页';
@@ -52,11 +53,14 @@ class Welcome extends MY_Controller {
 
         $limit  = $config['per_page'];
         $offset = ($page-1)*$config['per_page'];
-        $limit  = "{$limit},{$offset}";
+        $limit  = array('length'=>$limit,'offset'=>$offset);
 
         $billinfo = $this->Cat_model->getBIllList($where,$limit);
         $pageinfo = $this->pagination->create_links();
 
+		//totalmoney
+		$total_money = $this->Cat_model->count_allmoney($where2);
+		$res['data']['total_money'] = $total_money['total_money'];
 
 		$res['data']['bill']      = $billinfo;
 		$res['data']['pageinfo']  = $pageinfo;

@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php } ?>
             </tbody>
         </table>
-        <p class="total"><?php echo $data['pageinfo'];?></p>
+        <p class="total">总共:<?php echo $data['total_money'];?>元 &nbsp;&nbsp; <?php echo $data['pageinfo'];?></p>
     </div>
 </div>
 
