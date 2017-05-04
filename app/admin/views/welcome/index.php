@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
     <div class="container action total_sel">
-        <div class="row">
+       <div class="row">
             <div class="col-xs-6">
                 <div class="form-group">
                     <input type="hidden" id="hide_get_url" value="<?php echo site_url('welcome/index');?>">
@@ -60,14 +60,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="clo-md-10 col-xs-10">
                 <div class="form-group">
-                    <input type="text" id="starttime" class="form-control s_time" placeholder="起始日期" >
-                    <input type="text" id="endtime" class="form-control e_time" placeholder="终止日期" >
+                    <input type="text" id="starttime" name="starttime" class="form-control s_time" placeholder="起始日期" >
+                    <input type="text" id="endtime" name="endtime" class="form-control e_time" placeholder="终止日期" >
                 </div>
             </div>
             <div class="clo-md-2 col-xs-2">
                 <div class="form-group">
                     <input type="hidden" value="<?php echo site_url('welcome/index');?>" class="hide_search_url">
-                    <button type="button" class="btn btn-default search_btn" style="float: right;">查询记录</button>
+                    <button type="button" class="btn btn-default" onclick="checkparame()" style="float: right;">查询记录</button>
                 </div>
             </div>
         </div>
@@ -198,6 +198,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         start: laydate.now(0, 'YYYY-MM-DD')
     });
     laydate.skin("molv");
+
+    function checkparame()
+    {
+        var url = "<?php echo site_url('welcome/index');?>";
+        var parent_cat = $(".sel_parent_cat").val();
+        var son_cat = $(".sel_son_cat").val();
+        var starttime = $("#starttime").val();
+        var endtime   = $("#endtime").val();
+        if(parent_cat > 0){
+             url = url + "?parent_cat="+parent_cat;
+        }
+        if(son_cat > 0){
+            if(url.indexOf("?") > 0){
+                url = url + "&son_cat="+son_cat;
+            }else{
+                url = url + "?son_cat="+son_cat;
+            }
+        }
+
+        if(starttime != '' && starttime != null){
+            if(url.indexOf("?") > 0){
+                url = url + "&starttime="+starttime;
+            }else{
+                url = url + "?starttime="+starttime;
+            }
+        }
+        if(endtime != '' && endtime != null){
+            if(url.indexOf("?") > 0){
+                url = url + "&endtime="+endtime;
+            }else{
+                url = url + "?endtime="+endtime;
+            }
+        }
+        window.location.href = url;
+    }
 </script>
 </body>
 </html>

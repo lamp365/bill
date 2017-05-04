@@ -95,7 +95,7 @@ function sel_son_cat(obj){
     url = url +"/"+p_cat_id+"/"+s_cat_id;
     console.log(url,mark);
     if(mark == 1){
-        window.location.href = url;
+        //window.location.href = url;
     }
 }
 

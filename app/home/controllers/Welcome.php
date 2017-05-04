@@ -19,37 +19,47 @@ class Welcome extends MY_Controller {
 		$res['data']['css']    = $css;
 		$res['data']['parent'] = $this->Cat_model->getAllCat(array('pid'=>0));
 
-        $p_id = $this->uri->segment(3);
-        $c_id = $this->uri->segment(4);
+        $p_id = $this->input->post('parent_cat');
+        $c_id = $this->input->post('son_cat');
+        $starttime = $this->input->post('starttime');
+        $endtime   = $this->input->post('endtime');
         $where = $where2 = array();
-        if(!empty($p_id) && !empty($c_id)){
-            $where = array('p_id'=>$p_id,'c_id'=>$c_id);
-			$where2 = array('p_id'=>$p_id,'c_id'=>$c_id);
+        if(!empty($p_id)){
+            $where = array('p_id'=>$p_id);
+			$where2 = array('p_id'=>$p_id);
         }
 
-        if(empty($where)){
-            $page = $this->uri->segment(3);
-        }else{
-            $page = $this->uri->segment(5);
+		if(!empty($c_id)){
+            $where['c_id'] = $c_id;
+            $where2['c_id'] = $c_id;
         }
+		if(!empty($starttime)){
+			$where['createtime >'] =  strtotime($starttime);
+			$where2['createtime >'] = strtotime($starttime);
+		}
+		if(!empty($endtime)){
+			$where['createtime <'] = strtotime($endtime);
+			$where2['createtime <'] = strtotime($endtime);
+		}
 
-        if(empty($page)){
-            $page = 1;
-        }
+		$page = $this->uri->segment(3);
+		if(empty($page)){
+			$page = 1;
+		}
 
-        $curt_url = rtrim(site_url('welcome/index'),'.html');
-        $curt_url = empty($where) ? $curt_url : $curt_url.'/'.$p_id.'/'.$c_id;
-        $this->load->library('pagination');
-        $config['base_url']    = $curt_url;
-        $config['total_rows']  = $this->Cat_model->count_allBill($where);
-        $config['per_page']    = 20;
-        $config['uri_segment'] = empty($where) ? 3 : 5 ;
-        $config['use_page_numbers'] = TRUE;
-        $config['first_link']  = '首页';
-        $config['last_link']   = '尾页';
-        $config['prev_link']   = '上一页';
-        $config['next_link']   = '下一页';
-        $this->pagination->initialize($config);
+		$curt_url = rtrim(site_url('welcome/index'),'.html');
+		$this->load->library('pagination');
+		$config['base_url']    = $curt_url;
+		$config['total_rows']  = $this->Cat_model->count_allBill($where);
+		$config['per_page']    = 20;
+		$config['uri_segment'] = 3 ;
+		$config['use_page_numbers'] = TRUE;
+		$config['first_link']  = '首页';
+		$config['last_link']   = '尾页';
+		$config['prev_link']   = '上一页';
+		$config['next_link']   = '下一页';
+		$config['reuse_query_string'] = true;
+		$this->pagination->initialize($config);
 
 		$limit  = $config['per_page'];
 		$offset = ($page-1)*$config['per_page'];
@@ -66,6 +76,8 @@ class Welcome extends MY_Controller {
 		$res['data']['pageinfo']  = $pageinfo;
 		$res['data']['p_id']      = $p_id;
 		$res['data']['c_id']      = $c_id;
+		$res['data']['starttime'] = $starttime;
+		$res['data']['endtime']   = $endtime;
 
 		$this->load->view('welcome/index',$res);
 	}
